@@ -1,7 +1,6 @@
 import { useSession, signIn, signOut } from 'next-auth/react';
 import { getServerSession } from "@/lib/auth";
-import { LoginButton } from "./components/LoginButton";
-import { LogoutButton } from './components/LogoutButton';
+import { LoginContent } from './components/LoginContent';
 
 
 export default async function Home() {
@@ -10,7 +9,7 @@ export default async function Home() {
 
   return (
     <>
-      {session ? (
+      {/* {session ? (
         <div>aaa</div>
       ): (
     <LoginButton />
@@ -19,7 +18,8 @@ export default async function Home() {
         <LogoutButton />
       ) : (
         <div>bbb</div>
-      )}
+      )} */}
+      <LoginContent />
     </>
   );
 }
