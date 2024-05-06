@@ -15,21 +15,23 @@ export const LoginButtonGroup = () => {
       <button onClick={() => signIn('github', { callbackUrl: "http://localhost:3000/dashboard"})}>Github</button> */}
       {/* <Button onClick={() => signIn('google', { callbackUrl: "http://localhost:3000/dashboard"})} color="default" variant="bordered" radius="full" startContent={<GoogleIcon />}>Login with Google</Button>
       <Button onClick={() => signIn('github', { callbackUrl: "http://localhost:3000/dashboard"})} color="default" variant="bordered" radius="full" startContent={<GithubIcon width="1.4rem" height="1.4rem" />}>Login With Github</Button> */}
-      <NextButton>
+      {/* <NextButton fullWidth>
         <span className="inline-flex items-center">
           <GoogleIcon />
         </span>
         Login with Google
-      </NextButton>
-      <Button startContent={<GoogleIcon />} endContent={<GoogleIcon />}>
-        Button
+      </NextButton> */}
+      <Button startContent={<GoogleIcon />} variant="defaultOutline" radius="full">
+        Login with Google
       </Button>
-      <Button>ボタン</Button>
+      <Button startContent={<GithubIcon />} variant="defaultOutline" radius="full">
+        Login with Github
+      </Button>
     </div>
-    <div>
-      <Button>aa</Button>
-      <Button>aa</Button>
-    </div>
+    {/* <div>
+      <Button fullWidth>aa</Button>
+      <Button fullWidth>aa</Button>
+    </div> */}
     </>
   )
 }
