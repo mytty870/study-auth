@@ -4,6 +4,6 @@ import { signOut } from "next-auth/react"
 
 export const LogoutButton = () => {
   return (
-    <button onClick={() => signOut()}>ログアウト</button>
+    <button onClick={() => signOut()}>ログアウトaa</button>
   )
 }
