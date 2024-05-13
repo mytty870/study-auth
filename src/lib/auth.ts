@@ -21,6 +21,10 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GITHUB_CLIENT_SECRET || ""
     })
   ],
+  pages: {
+    // 認証許可が必要なページにアクセスした際のリダイレクト先
+    signIn: '/login',
+  },
   callbacks: {
     async jwt({ token, user }) {
       const dbUser = await prisma.user.findFirst({
@@ -37,6 +41,7 @@ export const authOptions: NextAuthOptions = {
         name: dbUser.name,
         email: dbUser.email,
         picture: dbUser.image,
+        userName: dbUser.userName,
       }
     },
     async session({ session, token }) {
@@ -45,9 +50,10 @@ export const authOptions: NextAuthOptions = {
           session.user.name = token.name;
           session.user.email = token.email;
           session.user.image = token.picture;
+          session.user.userName = token.userName as string;
       }
       return session
-    }
+    },
   },
 }
 
