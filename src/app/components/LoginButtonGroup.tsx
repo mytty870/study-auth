@@ -4,9 +4,9 @@ import { signIn } from "next-auth/react"
 import { GoogleIcon } from "./icons/GoogleIcon"
 import { GithubIcon } from "./icons/GithubIcon"
 import { Button } from "./Button"
-import { Button as NextButton } from "@nextui-org/react"
 
 export const LoginButtonGroup = () => {
+  const callbackUrl = 'http://localhost:3000/auth/init'
 
   return (
     <>
@@ -21,17 +21,13 @@ export const LoginButtonGroup = () => {
         </span>
         Login with Google
       </NextButton> */}
-      <Button startContent={<GoogleIcon />} variant="defaultOutline" radius="full">
+      <Button onClick={() => signIn('google', {callbackUrl: callbackUrl})} startContent={<GoogleIcon />} variant="defaultOutline" radius="full">
         Login with Google
       </Button>
-      <Button startContent={<GithubIcon />} variant="defaultOutline" radius="full">
+      <Button onClick={() => signIn('github', {callbackUrl: callbackUrl})} startContent={<GithubIcon />} variant="defaultOutline" radius="full">
         Login with Github
       </Button>
     </div>
-    {/* <div>
-      <Button fullWidth>aa</Button>
-      <Button fullWidth>aa</Button>
-    </div> */}
     </>
   )
 }

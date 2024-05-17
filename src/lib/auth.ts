@@ -4,9 +4,11 @@ import GoogleProvider from "next-auth/providers/google"
 import GithubProvider from "next-auth/providers/github"
 import {prisma} from "@/lib/prisma"
 import { getServerSession as originalGetServerSession } from "next-auth"
+import { customPrismaAdapter } from "./customPrismaAdapter"
 
 export const authOptions: NextAuthOptions = {
-  adapter: PrismaAdapter(prisma),
+  // adapter: PrismaAdapter(prisma),
+  adapter: customPrismaAdapter,
   secret: process.env.AUTH_SECRET,
   session: {
     strategy: "jwt",
@@ -21,10 +23,16 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GITHUB_CLIENT_SECRET || ""
     })
   ],
+  pages: {
+    // 認証許可が必要なページにアクセスした際のリダイレクト先
+    signIn: '/login',
+  },
   callbacks: {
     async jwt({ token, user }) {
+
       const dbUser = await prisma.user.findFirst({
-        where: { email: token.email}
+        where: { email: token.email},
+        include: { profile: true}
       })
       if (!dbUser) {
         if (user) {
@@ -37,6 +45,7 @@ export const authOptions: NextAuthOptions = {
         name: dbUser.name,
         email: dbUser.email,
         picture: dbUser.image,
+        displayNmae: dbUser.profile?.displayName,
       }
     },
     async session({ session, token }) {
@@ -45,9 +54,10 @@ export const authOptions: NextAuthOptions = {
           session.user.name = token.name;
           session.user.email = token.email;
           session.user.image = token.picture;
+          session.user.displayName = token.userName as string;
       }
       return session
-    }
+    },
   },
 }
 
