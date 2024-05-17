@@ -62,10 +62,11 @@ model VerificationToken {
 }
 
 model Profile {
-  id          String  @id @default(cuid())
-  bio         String?
-  screenName  String? @unique @default(cuid())
-  userId      String  @unique
-  user        User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  displayName String? @unique
+  id             String  @id @default(cuid())
+  bio            String?
+  avatarImageUrl String?
+  screenName     String? @unique @default(cuid())
+  userId         String  @unique
+  user           User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  displayName    String? @unique
 }

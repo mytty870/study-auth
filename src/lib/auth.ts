@@ -4,9 +4,11 @@ import GoogleProvider from "next-auth/providers/google"
 import GithubProvider from "next-auth/providers/github"
 import {prisma} from "@/lib/prisma"
 import { getServerSession as originalGetServerSession } from "next-auth"
+import { customPrismaAdapter } from "./customPrismaAdapter"
 
 export const authOptions: NextAuthOptions = {
-  adapter: PrismaAdapter(prisma),
+  // adapter: PrismaAdapter(prisma),
+  adapter: customPrismaAdapter,
   secret: process.env.AUTH_SECRET,
   session: {
     strategy: "jwt",
